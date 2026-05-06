@@ -1,4 +1,5 @@
 # 🚜 GREEN-GIT-FARM 🌾
+[![Auto Commit Farm](https://github.com/ZRayce/GREEN-GIT-FARM/actions/workflows/auto-commit.yml/badge.svg?event=schedule)](https://github.com/ZRayce/GREEN-GIT-FARM/actions/workflows/auto-commit.yml)
 
 ```text
 +==========================================================================================+
