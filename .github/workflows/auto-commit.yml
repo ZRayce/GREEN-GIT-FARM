@@ -2,7 +2,7 @@ name: Auto Commit Farm
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs at minute 0 of every hour
+    - cron: '*/5 * * * *'  
   workflow_dispatch:
 
 jobs:
