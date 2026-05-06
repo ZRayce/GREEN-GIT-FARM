@@ -2,28 +2,68 @@ name: Auto Commit Farm
 
 on:
   schedule:
-    - cron: '0 * * * *'  
-  workflow_dispatch:
+    - cron: '0 * * * *'  # Runs exactly at the top of every hour
+  workflow_dispatch:     # Allows for manual testing
 
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Make a dummy change
+      - name: Make a dummy change with random quote
         run: |
-          echo "Harvested a green square on $(date)" >> .commit_log
+          QUOTES=(
+            "It ain't much, but it's honest work. 🚜"
+            "Another day, another green square harvested. 🌾"
+            "Just a humble farmer tending to my commits. 🧑‍🌾"
+            "Adding some fertilizer to the contribution graph. 💩"
+            "Green squares don't grow themselves... wait, yes they do. 😂"
+            "Aura points +1000 for this commit. ✨"
+            "Tractor engine is purring perfectly. 🚜💨"
+            "Waking up early to feed the repository. 🐔"
+            "The harvest is bountiful this hour. 🌽"
+            "Commiting while the sun is high. ☀️"
+            "Watering my pixels daily. 💧"
+            "If it works, don't touch the tractor. 🛠️"
+            "My code is organic and locally grown. 🍎"
+            "Just another brick in the green wall. 🧱"
+            "Cyber-farming is the future. 🦾"
+            "POV: You're a bot and life is good. 🤖"
+            "I'm out-standing in my field. Literally. 🌽"
+            "Git pull, Git push, Git paid. 💸"
+            "Everything is fine, the bot is in control. 🕹️"
+            "Building a digital ecosystem, one pixel at a time. 🌍"
+            "The compiler is my weather report. ⛈️"
+            "Sowing seeds of code. 🌻"
+            "Harvesting logic gates. ⚡"
+            "Don't mind me, just keeping the streak alive. 🔥"
+            "Sleep is for people who don't have cron jobs. ☕"
+            "Commit history go brrr. 📈"
+            "Is this the real life? Is this just automation? 🎤"
+            "Another hour, another square. No cap. 🧢"
+            "Carolinian pride in every commit. 🦁"
+            "Headless farm for a headless developer. 💀"
+          )
+          
+          RANDOM_QUOTE=${QUOTES[$RANDOM % ${#QUOTES[@]}]}
+          
+          echo "[$RANDOM_QUOTE] on $(date)" >> .commit_log
+          echo "COMMIT_MSG=$RANDOM_QUOTE" >> $GITHUB_ENV
 
       - name: Commit and Push
         run: |
-          git config --global user.name "ZRayce"
-          git config --global user.email "zerorayce@gmail.com"
+          git config --local user.name "ZRayce"
+          git config --local user.email "zerorayce@gmail.com"
           
           git add .commit_log
-          git commit -m "chore: farm another green square"
+          git commit --author="ZRayce <zerorayce@gmail.com>" -m "$COMMIT_MSG"
           git push
