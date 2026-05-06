@@ -21,8 +21,8 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "ZRayce"
+          git config --global user.email "zerorayce@gmail.com"
           
           git add .commit_log
           git commit -m "chore: farm another green square"
